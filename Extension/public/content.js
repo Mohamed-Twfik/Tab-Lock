@@ -3,9 +3,7 @@ chrome.storage.local.get(["urls"], (result) => {
     (url) => window.location.hostname === url
   );
   if (index > -1) {
-    // const original = document.body.innerHTML;
     // Check if the browser supports getUserMedia
-    // document.body.innerHTML = "<h1>Loading...</h1>";
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       // Request access to the user's camera
       navigator.mediaDevices
@@ -19,7 +17,6 @@ chrome.storage.local.get(["urls"], (result) => {
           // Wait for the video to load and play
           video.onloadedmetadata = () => {
             video.play();
-
             // Capture a frame from the video stream
             const canvas = document.createElement("canvas");
             canvas.width = video.videoWidth;
@@ -39,16 +36,9 @@ chrome.storage.local.get(["urls"], (result) => {
                   console.error(chrome.runtime.lastError);
                   return;
                 }
-
+                console.log(response)
                 if (response && !response.result) {
-                  document.body.innerHTML = "<h1>Access Denied</h1>";
-                  document.body.style.backgroundColor = "red";
-                  document.body.style.textAlign = "center";
-                  
-                  document.getElementsByTagName("h1")[0].style.fontSize = "5em";
-                  document.getElementsByTagName("h1")[0].style.marginTop = "5em";
-                  document.getElementsByTagName("h1")[0].style.padding = "0.5em";
-                  document.getElementsByTagName("h1")[0].style.color = "white";
+                 renderError("")
                 }
               }
             );
@@ -61,12 +51,24 @@ chrome.storage.local.get(["urls"], (result) => {
           };
         })
         .catch((error) => {
+          renderError("Check Your Camera")
           console.error("Error accessing camera:", error);
         });
     } else {
-      console.error("getUserMedia is not supported in this browser");
+             renderError("Check Your Camera")
     }
   } else {
     console.log("Not restricted");
   }
 });
+
+
+function renderError(str){
+  document.body.innerHTML = `<h1>Access Denied ${str}</h1>`;
+  document.body.style.backgroundColor = "red";
+  document.body.style.textAlign = "center";
+  document.getElementsByTagName("h1")[0].style.fontSize = "5em";
+  document.getElementsByTagName("h1")[0].style.marginTop = "5em";
+  document.getElementsByTagName("h1")[0].style.padding = "0.5em";
+  document.getElementsByTagName("h1")[0].style.color = "white";
+}
