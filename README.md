@@ -1,4 +1,10 @@
-# TabLock
+
+
+<p align="center">
+  <img src="https://github.com/Mohamed-Twfik/Tab-Lock/assets/91837017/785575de-71e0-40b3-a046-f457275f95dd" alt="TabLock Logo" width="200">
+</p>
+
+# TabLock 
 
 TabLock is a Chrome extension that protects your privacy by using face recognition as an extra layer of security for any domain you add. It keeps your sensitive data safe if you have shared your PC with someone or if there are some intrusive people in your life.
 
